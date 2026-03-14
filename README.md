@@ -1,195 +1,161 @@
-![logo](https://github.com/sahilatahar/Code-Sync/assets/100127570/d1ff7f52-a692-4d51-b281-358aeab9156e)
+ ![logo](https://github.com/sahilatahar/Code-Sync/assets/100127570/d1ff7f52-a692-4d51-b281-358aeab9156e)
 
-A collaborative, real-time code editor where users can seamlessly code together. It provides a platform for multiple users to enter a room, share a unique room ID, and collaborate on code simultaneously.
+# CodeSync – Real-Time Collaborative Code Editor
 
-![GitHub contributors](https://img.shields.io/github/contributors/sahilatahar/Code-Sync?style=for-the-badge&color=48bf21)
-![GitHub Repo stars](https://img.shields.io/github/stars/sahilatahar/Code-Sync?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/sahilatahar/Code-Sync?style=for-the-badge&color=d7af2d)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/sahilatahar/Code-Sync?style=for-the-badge&color=f47373)
-![GitHub License](https://img.shields.io/github/license/sahilatahar/Code-Sync?style=for-the-badge&color=e67234)
-![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Fsahilatahar%2FCode-Sync&label=Repo%20Views&countColor=%2337d67a&labelStyle=upper)
+CodeSync is a **real-time collaborative coding platform** where multiple users can join a shared room and edit code simultaneously. The application uses **WebSockets via Socket.IO** to synchronize updates instantly between connected users.
 
-## 🔮 Features
+Users can collaborate on files, chat in real time, view each other's cursor movements, and use a shared whiteboard for collaborative drawing.
 
-- 💻 Real-time collaboration on code editing across multiple files
-- 📁 Create, open, edit, save, delete, and organize files and folders
-- 💾 Option to download the entire codebase as a zip file
-- 🚀 Unique room generation with room ID for collaboration
-- 🌍 Comprehensive language support for versatile programming
-- 🌈 Syntax highlighting for various file types with auto-language detection
-- 🚀 Code Execution: Users can execute the code directly within the collaboration environment
-- ⏱️ Instant updates and synchronization of code changes across all files and folders
-- 📣 Notifications for user join and leave events
-- 👥 User presence list with online/offline status indicators
-- 💬 Real-time group chatting functionality
-- 🎩 Real-time tooltip displaying users currently editing.
-- 🖊 Showing real-time selection of what each user has currently selected.
-- 💡 Auto-suggestion based on programming language
-- 🔠 Option to change font size and font family
-- 🎨 Multiple themes for personalized coding experience
-- 🎨 Collaborative Drawing: Enable users to draw and sketch collaboratively in real-time
-- 🤖 Copilot: An AI-powered assistant that generates code, allowing you to insert, copy, or replace content seamlessly within your files.
+---
 
-## 🚀 Live Preview
+## 🚀 Features
 
-You can view the live preview of the project [here](https://code-sync-live.vercel.app/).
+* 💻 Real-time collaborative code editing
+* 🚀 Unique room generation for multi-user collaboration
+* 📁 Create, edit, rename, and delete files or directories
+* ⏱️ Instant synchronization of code updates across all users
+* 👥 User presence tracking (join / leave notifications)
+* 💬 Real-time group chat inside collaboration rooms
+* 🖊 Live cursor position and typing indicators
+* 🌈 Syntax highlighting for multiple programming languages
+* 🎨 Collaborative drawing board
+* 💾 Export project files as a ZIP
+
+---
+
+## 🏗 Architecture Overview
+
+CodeSync follows a **client–server architecture using WebSockets**.
+
+1. A user joins a collaboration room using a unique room ID.
+2. The frontend establishes a WebSocket connection with the backend.
+3. When a user edits code or performs an action, the client emits a Socket.IO event.
+4. The server receives the event and broadcasts the update to all users in the same room.
+5. Other clients listen for the event and update their UI instantly.
+
+### Real-time Synchronization Flow
+
+```
+User A edits code
+        │
+        ▼
+Frontend emits Socket.IO event
+        │
+        ▼
+Node.js Server receives event
+        │
+        ▼
+Server broadcasts update to room
+        │
+        ▼
+User B and User C receive update instantly
+```
+
+---
 
 ## 💻 Tech Stack
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
-![ExpressJS](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
-![Socket io](https://img.shields.io/badge/Socket.io-ffffff?style=for-the-badge)
-![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+### Frontend
 
-## ⚙️ Installation
+* React
+* TypeScript
+* Vite
+* CodeMirror (Code editor)
+* Socket.IO Client
+* Tldraw (Collaborative drawing)
 
-### Method 1: Manual Installation
+### Backend
 
-1. **Fork this repository:** Click the Fork button located in the top-right corner of this page.
-2. **Clone the repository:**
-   ```bash
-   git clone https://github.com/<your-username>/Code-Sync.git
-   ```
-3. **Create .env file:**
-   Inside the client and server directories create `.env` and set:
+* Node.js
+* Express.js
+* Socket.IO
+* TypeScript
 
-   Frontend:
+### Tools & Libraries
 
-   ```bash
-   VITE_BACKEND_URL=<your_server_url>
-   ```
+* Git & GitHub
+* UUID (room ID generation)
+* JSZip & FileSaver (export project as zip)
 
-   Backend:
+---
 
-   ```bash
-   PORT=3000
-   ```
+## ⚙️ Installation & Setup
 
-4. **Install dependencies:**
-   ```bash
-   npm install     # Run in both client and server directories
-   ```
-5. **Start the servers:**
-   Frontend:
-   ```bash
-   cd client
-   npm run dev
-   ```
-   Backend:
-   ```bash
-   cd server
-   npm run dev
-   ```
-6. **Access the application:**
-   ```bash
-   http://localhost:5173/
-   ```
-### 🎥 Need help with the setup?
-👉 Watch [this video](https://youtu.be/zVHwOmU0aqo) for a step-by-step guide.
-### Method 2: Docker Installation
+### 1. Clone the repository
 
-1. **Install Docker Desktop:**
+```
+git clone https://github.com/<your-username>/Code-Sync.git
+cd Code-Sync
+```
 
-   - Download and install **Docker Desktop** from [Docker’s official website](https://www.docker.com/products/docker-desktop/).
-   - Verify installation:
-     ```bash
-     docker --version
-     ```
+### 2. Setup Backend
 
-2. **Pull Docker Images:**
+```
+cd server
+npm install
+npm run dev
+```
 
-   ```bash
-   # Pull Backend Image
-   docker pull sahilatahar/code-sync-server:latest
+Backend server runs on:
 
-   # Pull Frontend Image
-   docker pull sahilatahar/code-sync-client:latest
-   ```
+```
+http://localhost:3000
+```
 
-3. **Run Docker Containers:**
+### 3. Setup Frontend
 
-   ```bash
-   # Run Backend Container (Port 3000)
-   docker run -d -p 3000:3000 --name code-sync-server sahilatahar/code-sync-server:latest
+Open another terminal:
 
-   # Run Frontend Container (Port 5173)
-   docker run -d -p 5173:5173 --name code-sync-client sahilatahar/code-sync-client:latest
-   ```
+```
+cd client
+npm install
+npm run dev
+```
 
-4. **Access the application:**
-   ```bash
-   http://localhost:5173/
-   ```
+Frontend runs on:
 
-## 🔮 Features for Next Release
+```
+http://localhost:5173
+```
 
-- **Admin Permission:** Implement an admin permission system to manage user access levels and control over certain platform features.
+---
 
-## 🤝 Contribute
+## ⚠️ Current Limitations
 
-We welcome contributions to make Code Sync even better! Follow the [contribution guidelines](CONTRIBUTING.md) to get started.
+* Data is stored **in memory**, so sessions reset if the server restarts.
+* The system currently runs on a **single server instance** and does not support horizontal scaling.
 
-## 🌟 Support Us
+---
 
-If you find this helpful or valuable, please consider 🌟 starring the repository. It helps us gain visibility and encourages further development.
+## 🔮 Possible Improvements
 
-## 🧾 License
+* Add **Redis Pub/Sub** for multi-server scaling
+* Persist files and chat history using a **database**
+* Implement **authentication (JWT or OAuth)**
+* Add **conflict resolution algorithms for simultaneous edits**
 
-This project is licensed under the [MIT License](LICENSE).
+---
 
-## 🌟 Appreciation for Resources
+## 🌟 Acknowledgements
 
-Special thanks to:
+This project uses several open-source libraries:
 
-- EMKC for providing the Piston API:
+* **Socket.IO** – real-time communication between clients
+* **CodeMirror** – browser-based code editor
+* **Tldraw** – collaborative drawing whiteboard
+* **React & TypeScript** – frontend development
+* **Node.js & Express** – backend server framework
 
-  - [Piston Repository](https://github.com/engineer-man/piston)
-  - [Piston Docs](https://piston.readthedocs.io/en/latest/api-v2/)
+---
 
-- Tldraw contributors:
-  - [Tldraw Repository](https://github.com/tldraw/tldraw)
-  - [Tldraw Documentation](https://tldraw.dev/)
+## 👩‍💻 Author
 
-- Pollinations AI:
-  - [Pollinations Repository](https://github.com/pollinations/pollinations)
-  - [Pollinations Docs](https://pollinations.ai/)
+**Kumari Siddhi**
 
-## ✍️ About Developer
+GitHub: https://github.com/KumariSiddhi  
 
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top">
-        <img src="https://github.com/sahilatahar.png" width="120px;" alt="Sahil Atahar"/>
-        <br />
-        <b>Sahil Atahar</b>
-      </td>
-    </tr>
-    <tr>
-        <td align="center">
-            <a href="https://github.com/sahilatahar">
-            <img src="https://img.shields.io/badge/GitHub-100000.svg?style=for-the-badge&logo=github&logoColor=white"/>
-            </a>
-            <br/>
-            <a href="https://linkedin.com/in/sahilatahar">
-            <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"/>
-            </a>
-        </td>
-    </tr>
-  </tbody>
-</table>
+---
 
-## 👥 Collaborators
+## 📜 License
 
-<a href="https://github.com/sahilatahar/Code-Sync/graphs/contributors">
-   <img src="https://contrib.rocks/image?repo=sahilatahar/Code-Sync" />
-</a>
-
-
+This project is licensed under the **MIT License**.
